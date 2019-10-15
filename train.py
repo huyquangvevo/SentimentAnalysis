@@ -50,7 +50,7 @@ log_device_placement = False
 
 # Data Preparation
 # ==================================================
-drive = './drive/My Drive/AI_COLAB/Project3/Data'
+drive = '../drive/My Drive/AI_COLAB/Project3/Data'
 
 filename = "../tweets.csv"
 # goodfile = "../good_tweets.csv"
