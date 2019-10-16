@@ -6,7 +6,8 @@ from cnn_lstm import CNN_LSTM   #OPTION 0
 from lstm_cnn import LSTM_CNN   #OPTION 1
 from cnn import CNN             #OPTION 2 (Model by: Danny Britz)
 from lstm import LSTM           #OPTION 3
-MODEL_TO_RUN = 0
+from average import Combination #OPTION 4 
+MODEL_TO_RUN = 4
 
 
 import tensorflow as tf
@@ -50,8 +51,8 @@ log_device_placement = False
 
 # Data Preparation
 # ==================================================
-drive = './drive/My Drive/AI_COLAB/Project3/Data'
-
+# drive = './drive/My Drive/AI_COLAB/Project3/Data'
+drive = '../processCS291K'
 filename = "../tweets.csv"
 # goodfile = "../good_tweets.csv"
 # badfile = "../bad_tweets.csv"
@@ -150,6 +151,7 @@ with tf.Graph().as_default():
         elif (MODEL_TO_RUN == 3):
             model = LSTM(x_train.shape[1],y_train.shape[1],len(vocab_processor.vocabulary_),embedding_dim)
         else:
+            model = Combination(x_train.shape[1],y_train.shape[1],len(vocab_processor.vocabulary_),embedding_dim,filter_sizes,num_filters,l2_reg_lambda)
             print("PLEASE CHOOSE A VALID MODEL!\n0 = CNN_LSTM\n1 = LSTM_CNN\n2 = CNN\n3 = LSTM\n")
             exit();
 
@@ -249,3 +251,5 @@ with tf.Graph().as_default():
                 path = saver.save(sess, checkpoint_prefix, global_step=current_step)
                 print("Saved model checkpoint to {}\n".format(path))
         dev_step(x_dev, y_dev, writer=dev_summary_writer)
+
+

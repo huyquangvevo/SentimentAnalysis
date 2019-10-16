@@ -65,7 +65,7 @@ class CNN_LSTM(object):
         with tf.name_scope("loss"):
             self.losses = tf.nn.softmax_cross_entropy_with_logits(logits=self.scores,labels=self.input_y)
             self.loss = tf.reduce_mean(self.losses, name="loss")
-
+        
         with tf.name_scope("accuracy"):
             self.correct_pred = tf.equal(tf.argmax(self.predictions, 1),tf.argmax(self.input_y, 1))
             self.accuracy = tf.reduce_mean(tf.cast(self.correct_pred, "float"),name="accuracy")
